@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>{{ portal.title }}</h2>
+<p><strong>Title:</strong> {{ portal.title }}</p>
+<p><strong>Salary:</strong> {{ portal.salary }}</p>
+<p><strong>Description:</strong> {{ portal.description }}</p>
+<p><strong>Company:</strong> {{ portal.company}}</p>
+<p><strong>Location:</strong>{{portal.location }}</p>
+<a href="{% url 'portal_list' %}">← Back to list</a>
+</body>
+</html>

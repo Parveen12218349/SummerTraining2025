@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>{{ health.title }}</h2>
+<p><strong>Name:</strong> {{ health.name }}</p>
+<p><strong>Age:</strong> {{ health.age }}</p>
+<p><strong>Contact:</strong> {{ health.contact }}</p>
+<p><strong>Diagnosis:</strong> {{ health.diagnosis}}</p>
+<p><strong>Admission_Date:</strong>{{health.admission_date}}</p>
+<a href="{% url 'patient_list' %}">← Back to list</a>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Patient List</h1>
+<a href="{% url 'patient_create' %}">+ Add New patient</a>
+<ul>
+    {% for health in healths %}
+        <li>
+            <a href="{% url 'patient_detail' health.pk %}">{{ health.contact}}</a> – Age: {{health.age  }} — Diagnosis: {{ health.diagnosis}}
+            [<a href="{% url 'patient_edit' health.pk %}">Edit</a>]
+            [<a href="{% url 'patient_delete' health.pk %}">Delete</a>]
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Course List</h1>
+<a href="{% url 'course_add' %}">+ Add New course</a>
+<ul>
+    {% for course in courses %}
+        <li>
+            <a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a> – {{ course.description }} — Duration: {{ course.duration }}
+            [<a href="{% url 'course_edit' course.pk %}">Edit</a>]
+            [<a href="{% url 'course_delete' course.pk %}">Delete</a>]
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

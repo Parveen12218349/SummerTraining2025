@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Background Utilities</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans">
+
+  <!-- Solid Background Colors -->
+  <section class="p-6 mb-6 text-white bg-blue-500">
+    <h2 class="text-xl font-bold">Solid Background</h2>
+    <p>This box uses <code>bg-blue-500</code></p>
+  </section>
+
+  <!-- Gradient Background -->
+  <section class="p-6 mb-6 text-white bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
+    <h2 class="text-xl font-bold">Gradient Background</h2>
+    <p>Using <code>bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500</code></p>
+  </section>
+
+  <!-- Background Image -->
+  <section class="p-6 mb-6 text-white bg-[url('https://images.unsplash.com/photo-1522199710521-72d69614c702')] bg-cover bg-center rounded">
+    <h2 class="text-xl font-bold bg-black bg-opacity-50 inline-block px-2 rounded">Background Image</h2>
+    <p class="bg-black bg-opacity-40 inline-block px-2 mt-2">Image with <code>bg-cover bg-center</code></p>
+  </section>
+
+  <!-- Background Repeat and Position -->
+  <section class="p-6 mb-6 bg-[url('https://images.unsplash.com/photo-1522199710521-72d69614c702')] bg-repeat bg-right-top">
+    <h2 class="text-xl font-bold">Pattern Background</h2>
+    <p>Using a tiled background with <code>bg-repeat bg-right-top</code></p>
+  </section>
+
+  <!-- Background Blend Mode -->
+  <section class="relative p-6 mb-6 text-white bg-blend-overlay bg-gradient-to-br from-indigo-700 to-indigo-300 bg-[url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')] bg-cover bg-center">
+    <h2 class="text-xl font-bold">Blended Background</h2>
+    <p>Using <code>bg-blend-overlay</code> with gradient + image</p>
+  </section>
+
+  <!-- Background Clip Text -->
+  <section class="p-6 mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+    <h2 class="text-4xl font-extrabold">Clipped Gradient Text</h2>
+    <p class="text-lg mt-2">Using <code>bg-clip-text text-transparent</code></p>
+  </section>
+
+</body>
+</html>

@@ -6,13 +6,13 @@
 </head>
 <body>
 
-<h2>{{ view.object.pk|yesno:"Add portal" }}</h2>
+<h2>{{ view.object.pk|yesno:"Add Product" }}</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save</button>
 </form>
-<a href="{% url 'portal-list' %}">Cancel</a>
+<a href="{% url 'product_list' %}">Cancel</a>
 
 
 </body>

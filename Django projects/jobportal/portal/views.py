@@ -17,21 +17,18 @@ class PortalDetailView(DetailView):
 class PortalCreateView(CreateView):
     model = Portal
     template_name = 'createportal.html'
-    context_object_name = 'portal'
     fields = '__all__'
-    success_url = reverse_lazy('portal_list')
+    success_url = reverse_lazy('portal-list')
 
 class PortalUpdateView(UpdateView):
     model = Portal
     template_name = 'editportal.html'
-    context_object_name = 'portal'
     fields = '__all__'
-    success_url = reverse_lazy('portal_list')
+    success_url = reverse_lazy('portal-list')
 
 class PortalDeleteView(DeleteView):
     model = Portal
     template_name = 'deleteportal.html'
-    context_object_name = 'portal'
     fields = '__all__'
-    success_url = reverse_lazy('portal_list')
+    success_url = reverse_lazy('portal-list')
 

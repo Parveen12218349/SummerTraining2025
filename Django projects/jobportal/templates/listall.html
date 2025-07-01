@@ -6,13 +6,13 @@
 </head>
 <body>
 <h1>Product List</h1>
-<a href="{% url 'portal_add' %}">+ Add New portal</a>
+<a href="{% url 'portal-create' %}">+ Add New portal</a>
 <ul>
     {% for portal in portals %}
         <li>
-            <a href="{% url 'portal_detail' portal.pk %}">{{ portal.title}}</a> – ₹{{ portal.salary }} — Company: {{ portal.company }}
-            [<a href="{% url 'portal_edit' portal.pk %}">Edit</a>]
-            [<a href="{% url 'portal_delete' portal.pk %}">Delete</a>]
+            <a href="{% url 'portal-detail' portal.pk %}">{{ portal.title}}</a> – ₹{{ portal.salary }} — Company: {{ portal.company }}
+            [<a href="{% url 'portal-edit' portal.pk %}">Edit</a>]
+            [<a href="{% url 'portal-delete' portal.pk %}">Delete</a>]
         </li>
     {% endfor %}
 </ul>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Transitions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans p-10 space-y-10">
+
+  <div class="space-x-4 text-center">
+    
+    <!-- Scale and color change -->
+    <button class="bg-green-500 px-6 py-2 rounded transition duration-300 ease-in-out hover:bg-green-700 hover:scale-150">
+      Scale + Color
+    </button>
+
+    <!-- Translate and shadow change -->
+    <button class="bg-blue-500 px-6 py-2 rounded shadow-md transition duration-500 ease-out hover:translate-y-5 hover:shadow-xl">
+      Translate + Shadow
+    </button>
+
+    <!-- Rotate with delay -->
+    <button class="bg-purple-500 px-6 py-2 rounded transition duration-700 delay-200 ease-in hover:rotate-6">
+      Rotate with Delay
+    </button>
+
+    <!-- Width and background gradient -->
+    <button class="bg-gradient-to-r from-pink-500 to-red-500 text-white px-6 py-2 rounded transition-all duration-500 hover:w-56 hover:from-yellow-400 hover:to-red-600">
+      Expanding Gradient
+    </button>
+
+  </div>
+
+</body>
+</html>

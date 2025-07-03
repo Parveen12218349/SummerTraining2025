@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Effects & Filters</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-0 text-red font-sans p-10 space-y-10">
+
+  <!-- Box Shadows -->
+  <div class="p-6 bg-white text-black shadow-md rounded">Shadow-md Box</div>
+  <div class="p-6 bg-white text-black shadow-lg rounded">Shadow-lg Box</div>
+  <div class="p-6 bg-white text-black shadow-inner rounded">Inner Shadow</div>
+
+  <!-- Opacity Examples -->
+  <div class="p-6 bg-red-500 opacity-100">Opacity 100%</div>
+  <div class="p-6 bg-red-500 opacity-50">Opacity 50%</div>
+  <div class="p-6 bg-red-500 opacity-20">Opacity 20%</div>
+
+  <!-- Mix Blend Mode -->
+  <div class="relative w-full h-40 bg-white">
+    <img src="https://picsum.photos/seed/bright/100" alt="Sample" class="absolute top-0 left-0 w-full h-full object-cover mix-blend-multiply" />
+    <p class="relative text-black font-bold p-4">Blend Multiply over White</p>
+  </div>
+
+  <!-- Background Blend Mode -->
+  <div class="w-full h-40 bg-gradient-to-r from-blue-500 to-pink-500 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-blend-overlay text-center p-4">
+    Background Blend: Overlay
+  </div>
+
+  <!-- Filter Effects -->
+    <div class="flex gap-4 text-center">
+    <img src="https://picsum.photos/seed/blur/100" class="filter blur-sm" alt="Blur" /> Blur
+    <img src="https://picsum.photos/seed/gray/100" class="filter grayscale" alt="Grayscale" /> Grayscale
+    <img src="https://picsum.photos/seed/sepia/100" class="filter sepia" alt="Sepia" /> Sepia
+    <img src="https://picsum.photos/seed/hue/100" class="filter hue-rotate-90" alt="Hue Rotate" /> Hue Rotate
+    <img src="https://picsum.photos/seed/invert/100" class="filter invert" alt="Invert" /> Invert
+    <img src="https://picsum.photos/seed/bright/100" class="filter brightness-150" alt="Brightness" /> Brightness
+    </div>
+
+  <!-- Backdrop Filter -->
+  <div class="relative bg-cover bg-center w-full h-48 bg-[url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')]">
+    <div class="absolute inset-0 backdrop-blur-md backdrop-brightness-50 flex items-center justify-center">
+      <p class="text-xl font-bold">Backdrop Blur + Brightness</p>
+    </div>
+  </div>
+
+  <!-- Drop Shadow -->
+  <div class="text-center space-x-4 bg-gray-200 text-black py-10">
+  <span class="text-3xl drop-shadow">Default Shadow</span>
+  <span class="text-3xl drop-shadow-md">Shadow Medium</span>
+</div>
+
+
+  <!-- Transition & Hover Effects -->
+<button class="bg-teal-500 text-white px-6 py-2 rounded shadow-lg transition duration-300 ease-in-out 
+               hover:bg-blue-700 hover:text-white-300 hover:scale-150 hover:brightness-150">
+  Hover Me
+</button>
+
+</body>
+</html>

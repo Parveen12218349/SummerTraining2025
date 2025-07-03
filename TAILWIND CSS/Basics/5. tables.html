@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Table Utilities</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+  
+  <div class="overflow-x-auto">
+    <table class="table-auto border-collapse border border-gray-400 w-full text-sm text-center shadow-md">
+      <thead class="bg-blue-500 text-white uppercase tracking-wide">
+        <tr>
+          <th class="border border-gray-300 px-4 py-2">Name</th>
+          <th class="border border-gray-300 px-4 py-2">Role</th>
+          <th class="border border-gray-300 px-4 py-2">Status</th>
+          <th class="border border-gray-300 px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr class="hover:bg-gray-100">
+          <td class="px-4 py-2">Alice</td>
+          <td class="px-4 py-2 text-left">Developer</td>
+          <td class="px-4 py-2 text-green-600 font-semibold">Active</td>
+          <td class="px-4 py-2">
+            <button class="text-blue-500 hover:underline">Edit</button>
+          </td>
+        </tr>
+        <tr class="hover:bg-gray-100">
+          <td class="px-4 py-2">Bob</td>
+          <td class="px-4 py-2 text-left">Designer</td>
+          <td class="px-4 py-2 text-yellow-600 font-semibold">Pending</td>
+          <td class="px-4 py-2">
+            <button class="text-blue-500 hover:underline">Edit</button>
+          </td>
+        </tr>
+        <tr class="hover:bg-gray-100">
+          <td class="px-4 py-2">Charlie</td>
+          <td class="px-4 py-2 text-left">Manager</td>
+          <td class="px-4 py-2 text-red-600 font-semibold">Blocked</td>
+          <td class="px-4 py-2">
+            <button class="text-blue-500 hover:underline">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <li class="p-8">
+        <strong>{{ book.title }}</strong> by {{ book.author }}
+        {% if book.available %}
+            <span style="color: green;">(In Stock)</span>
+         {% else %}
+            <span style="color: red;">(Out of Stock)</span>
+        {% endif %}
+    </li>
+</body>
+</html>

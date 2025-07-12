@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to The Barrel House{% endblock %}
+
+{% block content %}
+
+<!-- Hero Banner -->
+<section class="bg-amber-100 text-center py-12 rounded-xl mb-12">
+    <h2 class="text-3xl font-bold text-amber-800 mb-2">Discover Premium Spirits</h2>
+    <p class="text-gray-700 mb-4">Delivered legally and responsibly to your doorstep.</p>
+    <a href="/products/" class="bg-amber-700 text-white px-6 py-2 rounded hover:bg-amber-800">
+        Shop Now
+    </a>
+</section>
+
+<!-- Categories Section -->
+<section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-4 text-amber-800">Explore Categories</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-white border rounded-xl p-6 text-center shadow hover:shadow-lg">Whiskey</div>
+        <div class="bg-white border rounded-xl p-6 text-center shadow hover:shadow-lg">Wine</div>
+        <div class="bg-white border rounded-xl p-6 text-center shadow hover:shadow-lg">Beer</div>
+        <div class="bg-white border rounded-xl p-6 text-center shadow hover:shadow-lg">Accessories</div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-4 text-amber-800">Featured Products</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="bg-white border rounded-xl p-4 shadow-sm">
+            <h3 class="text-lg font-semibold">Single Malt Scotch</h3>
+            <p class="text-sm text-gray-500">Classic 18-Year Aged</p>
+        </div>
+        <div class="bg-white border rounded-xl p-4 shadow-sm">
+            <h3 class="text-lg font-semibold">Vintage Merlot</h3>
+            <p class="text-sm text-gray-500">2016 Reserve Bottle</p>
+        </div>
+        <div class="bg-white border rounded-xl p-4 shadow-sm">
+            <h3 class="text-lg font-semibold">Premium Bar Tool Set</h3>
+            <p class="text-sm text-gray-500">Shaker, Muddler & Strainer</p>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-4 text-amber-800">Why Choose The Barrel House?</h2>
+    <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li>✅ Legal age verification ensures compliance and safety.</li>
+        <li>✅ Wide range of premium alcoholic beverages and accessories.</li>
+        <li>✅ Trusted delivery and seamless user experience.</li>
+    </ul>
+</section>
+
+<!-- Newsletter Section -->
+<section class="bg-gray-100 p-6 rounded-xl text-center">
+    <h2 class="text-xl font-semibold mb-2 text-amber-700">Stay in the Loop</h2>
+    <p class="text-gray-600 mb-4">Get updates on new arrivals, offers, and featured collections.</p>
+    <form method="POST" action="#" class="flex flex-col sm:flex-row justify-center gap-2">
+        <input type="email" placeholder="Enter your email" class="px-4 py-2 rounded border w-full sm:w-1/2" required>
+        <button type="submit" class="bg-amber-700 text-white px-6 py-2 rounded hover:bg-amber-800">
+            Subscribe
+        </button>
+    </form>
+</section>
+
+{% endblock %}

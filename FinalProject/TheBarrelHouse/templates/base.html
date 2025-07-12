@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}The Barrel House – Premium Spirits Marketplace{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Header Block (override in specific templates if needed) -->
+{% block header %}
+<header class="relative h-[450px] text-white">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+        <img src="{% static 'images/barrel-image.jpg' %}" class="w-full h-full object-cover opacity-100" alt="Header background">
+    </div>
+
+    <!-- Overlay content -->
+    <div class="relative z-10">
+        <!-- Navigation at top-right -->
+        <nav class="absolute top-6 right-6 flex gap-6 text-lg font-semibold">
+            <a href="{% url 'home' %}" class="hover:underline">Home</a>
+            <a href="{% url 'products' %}" class="hover:underline">Products</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="hover:underline">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="hover:underline">Login</a>
+                <a href="{% url 'register' %}" class="hover:underline">Register</a>
+            {% endif %}
+        </nav>
+
+        <!-- Title at center-top -->
+        <div class="flex flex-col items-center justify-start pt-10 text-center">
+            <h1 class="text-5xl font-extrabold drop-shadow-lg">The Barrel House</h1>
+            <p class="text-xl mt-2 drop-shadow-md">Discover Curated Spirits & Bar Essentials</p>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+<!-- Main Page Content -->
+<main class="container mx-auto py-10 px-4">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-gray-300 py-10 mt-10">
+  <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+
+    <!-- About Us -->
+    <div>
+      <h3 class="text-lg font-bold mb-3 text-white">About The Barrel House</h3>
+      <p class="text-sm leading-6">
+        The Barrel House is your destination for curated premium spirits, barware, and lifestyle. We ensure legal age compliance and customer satisfaction.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-bold mb-3 text-white">Quick Links</h3>
+      <ul class="text-sm space-y-2">
+        <li><a href="{% url 'home' %}" class="hover:text-white">Home</a></li>
+        <li><a href="{% url 'products' %}" class="hover:text-white">Products</a></li>
+        <li><a href="{% url 'login' %}" class="hover:text-white">Login</a></li>
+        <li><a href="{% url 'register' %}" class="hover:text-white">Register</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div>
+      <h3 class="text-lg font-bold mb-3 text-white">Contact Us</h3>
+      <p class="text-sm">📍 123 Barrel Street, New York, NY</p>
+      <p class="text-sm">📞 +1 (555) 123-4567</p>
+      <p class="text-sm">📧 support@barrelhouse.com</p>
+    </div>
+
+    <!-- Social Media -->
+    <div>
+      <h3 class="text-lg font-bold mb-3 text-white">Follow Us</h3>
+      <div class="flex gap-4 text-white">
+        <a href="#" class="hover:text-gray-400">Instagram</a>
+        <a href="#" class="hover:text-gray-400">Facebook</a>
+        <a href="#" class="hover:text-gray-400">Twitter</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
+    © 2025 The Barrel House. All rights reserved. | Please drink responsibly. Must be 21+ to purchase.
+  </div>
+</footer>
+
+
+</body>
+</html>

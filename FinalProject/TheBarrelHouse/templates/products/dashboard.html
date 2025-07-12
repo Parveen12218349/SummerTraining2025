@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 280px;
+            padding: 15px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            margin: 6px 0;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #008060;
+        }
+
+        .stock {
+            color: #d9534f;
+        }
+
+        .category {
+            background: #f0f0f0;
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🛍️ Product Dashboard</h1>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        {% if product.images.all %}
+            <img src="{{ product.images.all.0.image_path.url }}" alt="{{ product.name }}">
+        {% else %}
+            <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No Image">
+        {% endif %}
+
+        <div class="product-info">
+            <p><strong>{{ product.name }}</strong></p>
+            <p class="price">₹{{ product.price }}</p>
+            <p>{{ product.description|truncatechars:60 }}</p>
+            <p class="stock">Stock: {{ product.stock }}</p>
+            <p class="category">{{ product.category.name }}</p>
+            <p>🕒 {{ product.created_at|date:"M d, Y" }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

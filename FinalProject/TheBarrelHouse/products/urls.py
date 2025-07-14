@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.dashboard, name='products'),  # This resolves {% url 'products' %}
+    path('dashboard/', views.dashboard, name='dashboard'),  # ✅ This fixes the error
     path('add/', views.add_product, name='add_product'),
     path('my/', views.my_products, name='my_products'),
     path('edit/<int:pk>/', views.edit_product, name='edit_product'),

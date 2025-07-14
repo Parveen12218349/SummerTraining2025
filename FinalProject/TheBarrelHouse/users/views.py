@@ -24,7 +24,6 @@ def register_view(request):
                 messages.error(request, "You must be at least 21 years old to register.")
                 return render(request, 'users/register.html', {'form': form})
 
-            # ✅ Save user (date_of_birth is not part of User, so skipped)
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful.")
@@ -36,27 +35,21 @@ def register_view(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
         user = authenticate(request, username=username, password=password)
         if user:
-            dob = getattr(user, 'date_of_birth', None)
-            if dob:
-                today = date.today()
-                age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
-                if age < 21:
-                    messages.error(request, "You must be at least 21 years old to log in.")
-                    return redirect('login')
-
             login(request, user)
-            return redirect('home')
+            return redirect('dashboard')  # or use LOGIN_REDIRECT_URL
         else:
             messages.error(request, "Invalid username or password.")
+            return render(request, 'users/login.html')
 
     return render(request, 'users/login.html')
+
 
 def logout_view(request):
     logout(request)

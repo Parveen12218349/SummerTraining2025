@@ -26,6 +26,9 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('users/', include('users.urls')),
     path('products/', include('products.urls')),
+    path('order/', include('order.urls')),
+    path('cart/', include('cart.urls')),
+
 ]
 
 # ✅ Serve media files in development

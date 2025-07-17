@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 
 from config import Config
-from models import Employee, db
+from decorators import login_required, admin_required
+from models import Employee, db, User
 
 app = Flask(__name__)
+
+app.secret_key='SECRETKEY'
 
 app.config.from_object(Config)
 
@@ -25,6 +28,7 @@ def home():
 
 
 @app.route('/listemp')
+@login_required
 def listemp():
     query = Employee.query
 
@@ -71,6 +75,7 @@ def create():
 
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
+@admin_required
 def edit(id):
     emp = Employee.query.get_or_404(id)
     if request.method == 'POST':
@@ -83,11 +88,65 @@ def edit(id):
     return render_template('edit.html', emp=emp)
 
 @app.route('/delete/<int:id>')
+@admin_required
 def delete(id):
     emp = Employee.query.get_or_404(id)
     db.session.delete(emp)
     db.session.commit()
     return redirect(url_for('listemp'))
+
+
+@app.route('/admin/dashboard')
+@admin_required
+def admin_dashboard():
+    total_employees = Employee.query.count()
+    avg_salary = db.session.query(db.func.avg(Employee.salary)).scalar()
+    max_salary = db.session.query(db.func.max(Employee.salary)).scalar()
+    min_salary = db.session.query(db.func.min(Employee.salary)).scalar()
+
+    dept_counts = db.session.query(Employee.department, db.func.count(Employee.id)) \
+                            .group_by(Employee.department).all()
+
+    recent_employees = Employee.query.order_by(Employee.id.desc()).limit(5).all()
+
+    return render_template('dashboard.html',
+                           total=total_employees,
+                           avg=round(avg_salary or 0, 2),
+                           max_salary=max_salary,
+                           min_salary=min_salary,
+                           dept_counts=dept_counts,
+                           recent_employees=recent_employees)
+
+
+from flask import session, flash, redirect, url_for, request, render_template
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user = User.query.filter_by(username=request.form['username']).first()
+        if user and user.check_password(request.form['password']):
+            session['user_id'] = user.id
+            flash("Logged in successfully.")
+            return redirect(url_for('home'))
+        else:
+            flash("Invalid credentials.")
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash("Logged out.")
+    return redirect(url_for('login'))
+
+@app.route('/create-admin')
+@admin_required
+def create_admin():
+    admin = User(username='admin', is_admin=True)
+    admin.set_password('admin123')
+    db.session.add(admin)
+    db.session.commit()
+    return "Admin created!"
+
 
 if __name__ == '__main__':
     app.run()

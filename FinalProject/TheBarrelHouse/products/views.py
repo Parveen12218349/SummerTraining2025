@@ -2,11 +2,26 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProductForm
 from .models import Product
 from django.contrib.auth.decorators import login_required
+from .models import Product, Category
+
 
 # ✅ Anyone can see the product dashboard
+from .models import Product, Category
+
 def dashboard(request):
+
+    category_name = request.GET.get('category')
     products = Product.objects.all()
-    return render(request, 'products/dashboard.html', {'products': products})
+
+    if category_name and category_name != "All":
+        products = products.filter(category__name=category_name)
+
+    categories = Category.objects.all()
+    return render(request, 'products/dashboard.html', {
+        'products': products,
+        'categories': categories
+    })
+
 
 # ✅ Anyone can see all products
 def my_products(request):
@@ -45,3 +60,13 @@ def delete_product(request, pk):
         product.delete()
         return redirect('my_products')
     return render(request, 'products/confirm_delete.html', {'product': product})
+
+
+
+def home_view(request):
+    featured_products = Product.objects.filter(featured=True)[:9]  # Show only 9
+    return render(request, 'index.html', {'featured_products': featured_products})
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    return render(request, 'products/product_detail.html', {'product': product})

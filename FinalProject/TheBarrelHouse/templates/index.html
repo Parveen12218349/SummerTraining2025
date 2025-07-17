@@ -28,105 +28,52 @@
 <!-- Explore Categories Section -->
 <section class="py-16 px-6 bg-cover bg-center bg-no-repeat" style="background-image: url('{% static 'images/wood-bg.png' %}');">
   <h2 class="text-3xl font-bold text-center text-amber-100 drop-shadow mb-10">Explore Categories</h2>
-
   <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-    <a href="#" class="bg-white/90 backdrop-blur-sm border border-amber-300 shadow-xl text-center py-6 rounded-xl hover:bg-amber-50 transition duration-300">
+
+    <a href="{% url 'products' %}?category=Whiskey" class="bg-white/90 backdrop-blur-sm border border-amber-300 shadow-xl text-center py-6 rounded-xl hover:bg-amber-50 transition duration-300">
       <p class="text-lg font-semibold text-amber-900">Whiskey</p>
     </a>
-    <a href="#" class="bg-white/90 backdrop-blur-sm border border-amber-300 shadow-xl text-center py-6 rounded-xl hover:bg-amber-50 transition duration-300">
-      <p class="text-lg font-semibold text-amber-900">Wine</p>
+
+    <a href="{% url 'products' %}?category=wine" class="bg-white/90 backdrop-blur-sm border border-amber-300 shadow-xl text-center py-6 rounded-xl hover:bg-amber-50 transition duration-300">
+      <p class="text-lg font-semibold text-amber-900">wine</p>
     </a>
-    <a href="#" class="bg-white/90 backdrop-blur-sm border border-amber-300 shadow-xl text-center py-6 rounded-xl hover:bg-amber-50 transition duration-300">
-      <p class="text-lg font-semibold text-amber-900">Beer</p>
+
+    <a href="{% url 'products' %}?category=jin" class="bg-white/90 backdrop-blur-sm border border-amber-300 shadow-xl text-center py-6 rounded-xl hover:bg-amber-50 transition duration-300">
+      <p class="text-lg font-semibold text-amber-900">jin</p>
     </a>
-    <a href="#" class="bg-white/90 backdrop-blur-sm border border-amber-300 shadow-xl text-center py-6 rounded-xl hover:bg-amber-50 transition duration-300">
-      <p class="text-lg font-semibold text-amber-900">Accessories</p>
+
+    <a href="{% url 'products' %}?category=All" class="bg-white/90 backdrop-blur-sm border border-amber-300 shadow-xl text-center py-6 rounded-xl hover:bg-amber-50 transition duration-300">
+      <p class="text-lg font-semibold text-amber-900">All</p>
     </a>
+
   </div>
 </section>
 
 
-<!-- Featured Products -->
+
+ <!-- Featured Products -->
 <section class="bg-gradient-to-b from-white via-amber-50 to-white py-14 px-6">
   <h2 class="text-2xl font-bold text-center text-[#743c00] mb-10"> Featured Products</h2>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-
-    <!-- Product Card 1 -->
-    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-     <img src="{% static 'images/scotch.png' %}" class="w-full object-contain" style="max-height: 300px;">
-
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-gray-800">Single Malt Scotch</h3>
-        <p class="text-sm text-gray-600">Classic 18-Year Aged</p>
-        <p class="text-orange-700 font-semibold mt-2">₹6,999</p>
-      </div>
+ {% for product in featured_products %}
+  <a href="{% url 'product_detail' product.id %}" class="block bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition">
+    {% if product.images.all %}
+      <img src="{{ product.images.all.0.image_path.url }}" class="w-full object-contain" style="max-height: 300px;">
+    {% else %}
+      <img src="https://via.placeholder.com/300x400?text=No+Image" class="w-full object-contain" style="max-height: 300px;">
+    {% endif %}
+    <div class="p-4">
+      <h3 class="text-lg font-bold text-gray-800">{{ product.name }}</h3>
+      <p class="text-sm text-gray-600">{{ product.description|truncatechars:60 }}</p>
+      <p class="text-orange-700 font-semibold mt-2">₹{{ product.price }}</p>
+      <p class="text-xs text-gray-500 mt-1">Stock: {{ product.stock }}</p>
+      <p class="text-xs text-gray-500">Category: {{ product.category.name }}</p>
+      <p class="text-xs text-gray-400">Added: {{ product.created_at|date:"M d, Y" }}</p>
     </div>
-
-    <!-- Product Card 2 -->
-    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-      <img src="{% static 'images/merlot.png' %}" class="w-full object-contain" style="max-height: 300px;">
-
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-gray-800">Vintage Merlot</h3>
-        <p class="text-sm text-gray-600">2016 Reserve Bottle</p>
-        <p class="text-orange-700 font-semibold mt-2">₹2,999</p>
-      </div>
-    </div>
-
-    <!-- Product Card 3 -->
-    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-      <img src="{% static 'images/gin.png' %}" class="w-full object-contain" style="max-height: 300px;">
-
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-gray-800">Premium Gin</h3>
-        <p class="text-sm text-gray-600">Bombay Sapphire</p>
-        <p class="text-orange-700 font-semibold mt-2">₹1,499</p>
-      </div>
-    </div>
-
-      <!-- Product Card 5 -->
-    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-     <img src="{% static 'images/scotch.png' %}" class="w-full object-contain" style="max-height: 300px;">
-
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-gray-800">Single Malt Scotch</h3>
-        <p class="text-sm text-gray-600">Classic 18-Year Aged</p>
-        <p class="text-orange-700 font-semibold mt-2">₹6,999</p>
-      </div>
-    </div>
-
-      <!-- Product Card 5 -->
-    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-     <img src="{% static 'images/scotch.png' %}" class="w-full object-contain" style="max-height: 300px;">
-
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-gray-800">Single Malt Scotch</h3>
-        <p class="text-sm text-gray-600">Classic 18-Year Aged</p>
-        <p class="text-orange-700 font-semibold mt-2">₹6,999</p>
-      </div>
-    </div>
-
-      <!-- Product Card 6 -->
-    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-     <img src="{% static 'images/scotch.png' %}" class="w-full object-contain" style="max-height: 300px;">
-
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-gray-800">Single Malt Scotch</h3>
-        <p class="text-sm text-gray-600">Classic 18-Year Aged</p>
-        <p class="text-orange-700 font-semibold mt-2">₹6,999</p>
-      </div>
-    </div>
-
-      <!-- Product Card 7 -->
-    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-     <img src="{% static 'images/scotch.png' %}" class="w-full object-contain" style="max-height: 300px;">
-
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-gray-800">Single Malt Scotch</h3>
-        <p class="text-sm text-gray-600">Classic 18-Year Aged</p>
-        <p class="text-orange-700 font-semibold mt-2">₹6,999</p>
-      </div>
-    </div>
+  </a>
+{% empty %}
+  <p class="text-gray-500 col-span-full text-center">No featured products found.</p>
+{% endfor %}
 
   </div>
 </section>

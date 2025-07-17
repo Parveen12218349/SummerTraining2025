@@ -20,14 +20,19 @@ from django.views.generic import TemplateView
 
 from django.conf import settings
 from django.conf.urls.static import static
+from products.views import home_view
+
 
 urlpatterns = [
+    path('', home_view, name='home'),
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('users/', include('users.urls')),
     path('products/', include('products.urls')),
     path('order/', include('order.urls')),
     path('cart/', include('cart.urls')),
+
+
 
 ]
 

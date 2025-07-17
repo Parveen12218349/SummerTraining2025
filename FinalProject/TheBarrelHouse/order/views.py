@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from products.models import Product
 from .models import Order, OrderItem
-from django.utils import timezone
 
 @login_required
 def place_order(request, product_id):
@@ -10,25 +9,32 @@ def place_order(request, product_id):
 
     if request.method == 'POST':
         quantity = int(request.POST.get('quantity', 1))
+        address = request.POST.get('address')
+        payment_method = request.POST.get('payment_method')
 
-        if quantity > 0 and quantity <= product.stock:
-            # Create Order
-            order = Order.objects.create(user=request.user, ordered_at=timezone.now())
+        if 0 < quantity <= product.stock and address and payment_method:
+            total_price = quantity * product.price
 
-            # Create OrderItem
+            order = Order.objects.create(
+                buyer=request.user,
+                total_amount=total_price,
+                shipping_address=address,
+                payment_method=payment_method
+            )
+
             OrderItem.objects.create(
                 order=order,
                 product=product,
-                quantity=quantity
+                quantity=quantity,
+                price=product.price
             )
 
-            # Update product stock
             product.stock -= quantity
             product.save()
 
-            return redirect('/products/dashboard/')  # Or redirect to a "Thank You" page
+            return redirect('/products/')
         else:
-            error = "Invalid quantity selected."
+            error = "Please enter all required details and valid quantity."
             return render(request, 'orders/place_order.html', {
                 'product': product,
                 'error': error

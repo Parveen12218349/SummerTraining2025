@@ -15,6 +15,7 @@ class Product(models.Model):
     stock = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    featured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -35,3 +36,5 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review by{self.buyer} on {self.product.name}"
+
+

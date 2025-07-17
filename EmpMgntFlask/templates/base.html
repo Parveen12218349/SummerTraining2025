@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8">
   <title>{% block title %}Employee Management{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,14 +10,27 @@
   <!-- Header / Navigation -->
   <nav class="bg-blue-600 text-white p-4">
     <div class="container mx-auto flex justify-between items-center">
-      <a href="{{ url_for('home') }}" class="text-xl font-bold">EmployeeApp</a>
+    <a href="{{ url_for('home') }}" class="text-xl font-bold">EmployeeApp</a>
       <div class="space-x-4">
         <a href="{{ url_for('home') }}" class="hover:underline">Home</a>
         <a href="{{ url_for('listemp') }}" class="hover:underline">Employees</a>
-{#        <a href="{{ url_for('admin_dashboard') }}" class="hover:underline">Dashboard</a>#}
+        <a href="{{ url_for('admin_dashboard') }}" class="hover:underline">Dashboard</a>
+          {% if session.get('user_id') %}
+            <a href="{{ url_for('logout') }}" class="hover:underline">Logout</a>
+          {% else %}
+            <a href="{{ url_for('login') }}" class="hover:underline">Login</a>
+          {% endif %}
       </div>
     </div>
   </nav>
+
+  {% with messages = get_flashed_messages() %}
+  {% if message %}
+    {% for msg in messages %}
+        <div class="text-center py-2 mt-5">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
 
   <!-- Main Content -->
   <main class="flex-grow container mx-auto mt-6">

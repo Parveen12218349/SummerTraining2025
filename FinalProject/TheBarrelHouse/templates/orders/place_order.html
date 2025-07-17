@@ -7,7 +7,7 @@
 </head>
 <body class="bg-[#f9f6f1] text-gray-800">
 
-<!-- Header (no banner image) -->
+<!-- Header -->
 <header class="bg-black text-white p-6">
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-2xl font-bold">The Barrel House</h1>
@@ -28,18 +28,44 @@
 <main class="max-w-3xl mx-auto px-4 py-10">
     <div class="bg-white p-6 rounded shadow">
         <h2 class="text-2xl font-semibold mb-4 text-[#743c00]">Order Product</h2>
+
         <div class="mb-6">
             <h3 class="text-lg font-bold">{{ product.name }}</h3>
             <p class="text-gray-600">Price: ₹{{ product.price }}</p>
         </div>
+
+        {% if error %}
+        <p class="text-red-600 font-semibold mb-4">{{ error }}</p>
+        {% endif %}
+
         <form method="POST" class="space-y-4">
             {% csrf_token %}
+
             <div>
                 <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
                 <input type="number" name="quantity" id="quantity" min="1" max="{{ product.stock }}" value="1"
                        class="w-24 border px-3 py-2 rounded mt-1">
             </div>
-            <button type="submit" class="bg-emerald-700 text-white px-6 py-2 rounded hover:bg-emerald-800">
+
+            <div>
+                <label for="shipping_address" class="block text-sm font-medium text-gray-700">Shipping Address</label>
+                <textarea name="shipping_address" id="shipping_address" rows="3"
+                          class="w-full border px-3 py-2 rounded mt-1" required></textarea>
+            </div>
+
+            <div>
+                <label for="payment_method" class="block text-sm font-medium text-gray-700">Payment Method</label>
+                <select name="payment_method" id="payment_method" required
+                        class="w-full border px-3 py-2 rounded mt-1">
+                    <option value="">Select</option>
+                    <option value="cod">Cash on Delivery</option>
+                    <option value="upi">UPI</option>
+                    <option value="card">Credit/Debit Card</option>
+                </select>
+            </div>
+
+            <button type="submit"
+                    class="bg-emerald-700 text-white px-6 py-2 rounded hover:bg-emerald-800">
                 Place Order
             </button>
         </form>
@@ -51,6 +77,5 @@
     <p class="text-sm">&copy; 2025 The Barrel House. All Rights Reserved.</p>
     <p class="text-xs text-gray-400 mt-1">Please drink responsibly. Must be 21+ to purchase.</p>
 </footer>
-
 </body>
 </html>

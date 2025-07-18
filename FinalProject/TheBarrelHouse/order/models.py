@@ -1,3 +1,5 @@
+# orders/models.py
+
 from django.db import models
 from products.models import Product
 from users.models import User
@@ -22,8 +24,9 @@ class Order(models.Model):
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
-    shipping_address = models.TextField()
-    payment_method = models.CharField(max_length=10, choices=PAYMENT_CHOICES)
+    # ✅ Add defaults or make nullable to prevent migration errors
+    shipping_address = models.TextField(default="Not Provided")
+    payment_method = models.CharField(max_length=10, choices=PAYMENT_CHOICES, default='cod')
 
     def __str__(self):
         return f"Order #{self.id} by {self.buyer.username if self.buyer else 'Unknown'}"

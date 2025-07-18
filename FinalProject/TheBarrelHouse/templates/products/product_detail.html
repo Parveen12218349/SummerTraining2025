@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ product.name }} | The Barrel House{% endblock %}
+{% block title %}
+  {{ product.name }} | The Barrel House
+{% endblock %}
 
 {% block header_image %}
   {% static 'images/product-detail-banner.jpg' %}
@@ -31,6 +33,7 @@
 
     <!-- Action Buttons -->
     <div class="mt-6 flex gap-4">
+      <!-- Add to Cart -->
       <form method="POST" action="{% url 'add_to_cart' product.id %}">
         {% csrf_token %}
         <input type="hidden" name="quantity" value="1">
@@ -40,7 +43,8 @@
         </button>
       </form>
 
-      <a href="{% url 'place_order' product.id %}"
+      <!-- Buy Now -->
+      <a href="{% url 'place_order_with_product' product.id %}"
          class="bg-amber-700 hover:bg-amber-800 text-white px-6 py-2 rounded text-sm font-semibold">
         Buy Now
       </a>

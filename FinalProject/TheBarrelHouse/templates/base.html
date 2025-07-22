@@ -2,102 +2,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}The Barrel House – Premium Spirits Marketplace{% endblock %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>{% block title %}The Barrel House – Premium Spirits Marketplace{% endblock %}</title>
+  <!-- Tailwind & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <style>
+    .wooden-bg {
+      background: url("{% static 'images/smoke.png' %}") no-repeat center center;
+      background-size: cover;
+    }
+    .wooden-text {
+      background: linear-gradient(to right, #a67c52, #8b5c2d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .smooch-header {
+      font-family: 'Smooch Sans', cursive;
+    }
+  </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-<!-- Header Block (override in specific templates if needed) -->
-{% block header %}
-<header class="relative h-[450px] text-white">
-    <!-- Background image -->
-    <div class="absolute inset-0">
-        <img src="{% block header_image %}{% static 'images/barrel-image.jpg' %}{% endblock %}"
-     class="w-full h-full object-cover opacity-100" alt="Header background">
+<!-- 🔒 Fixed Top Navbar with Wooden Background -->
+<header class="fixed top-0 left-0 right-0 z-50 wooden-bg bg-opacity-60 shadow-lg text-white">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- 🔤 Site Title -->
+    <h1 class="text-5xl font-extrabold tracking-wider wooden-text smooch-header">
+      The Barrel House
+    </h1>
 
-    </div>
-
-    <!-- Overlay content -->
-    <div class="relative z-10">
-        <!-- Navigation at top-right -->
-        <nav class="absolute top-6 right-6 flex gap-6 text-lg font-semibold">
-            <a href="{% url 'home' %}" class="hover:underline">Home</a>
-            <a href="{% url 'products' %}" class="hover:underline">Products</a>
-            {% if user.is_authenticated %}
-                <a href="{% url 'view_cart' %}" title="Cart" class="hover:underline">🛒</a>
-                <a href="{% url 'logout' %}" class="hover:underline">Logout</a>
-            {% else %}
-                <a href="{% url 'login' %}" class="hover:underline">Login</a>
-                <a href="{% url 'register' %}" class="hover:underline">Register</a>
-            {% endif %}
-        </nav>
-
-        <!-- Title at center-top -->
-        <div class="flex flex-col items-center justify-start pt-10 text-center">
-            <h1 class="text-5xl font-extrabold drop-shadow-lg">The Barrel House</h1>
-            <p class="text-xl mt-2 drop-shadow-md">Discover Curated Spirits & Bar Essentials</p>
-        </div>
-    </div>
+    <!-- 🌐 Navigation -->
+    <nav class="flex gap-6 text-xl font-semibold smooch-header">
+      <a href="{% url 'index' %}" class="hover:underline wooden-text">🏠 Home</a>
+      <a href="{% url 'products' %}" class="hover:underline wooden-text">🛍 Products</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'view_cart' %}" title="Cart" class="hover:underline wooden-text text-xl">🛒 Cart</a>
+        <a href="{% url 'logout' %}" class="hover:underline wooden-text">🔓 Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="hover:underline wooden-text">🔐 Login</a>
+        <a href="{% url 'register' %}" class="hover:underline wooden-text">📝 Register</a>
+      {% endif %}
+    </nav>
+  </div>
 </header>
-{% endblock %}
 
-<!-- Main Page Content -->
-<main class="container mx-auto py-10 px-4">
-    {% block content %}
-    {% endblock %}
-</main>
-
-<!-- Footer -->
-<footer class="bg-gray-900 text-gray-300 py-8 mt-10">
-  <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
-
-    <!-- About Us -->
-    <div>
-      <h3 class="text-lg font-bold mb-3 text-white">About The Barrel House</h3>
-      <p class="text-sm leading-6">
-        The Barrel House is your destination for curated premium spirits, barware, and lifestyle. We ensure legal age compliance and customer satisfaction.
-      </p>
-    </div>
-
-    <!-- Quick Links -->
-    <div>
-      <h3 class="text-lg font-bold mb-3 text-white">Quick Links</h3>
-      <ul class="text-sm space-y-2">
-        <li><a href="{% url 'home' %}" class="hover:text-white">Home</a></li>
-        <li><a href="{% url 'products' %}" class="hover:text-white">Products</a></li>
-        <li><a href="{% url 'login' %}" class="hover:text-white">Login</a></li>
-        <li><a href="{% url 'register' %}" class="hover:text-white">Register</a></li>
-      </ul>
-    </div>
-
-    <!-- Contact Info -->
-    <div>
-      <h3 class="text-lg font-bold mb-3 text-white">Contact Us</h3>
-      <p class="text-sm">📍 123 Barrel Street, New York, NY</p>
-      <p class="text-sm">📞 +1 (555) 123-4567</p>
-      <p class="text-sm">📧 support@barrelhouse.com</p>
-    </div>
-
-    <!-- Social Media -->
-    <div>
-      <h3 class="text-lg font-bold mb-3 text-white">Follow Us</h3>
-      <div class="flex gap-4 text-white">
-        <a href="#" class="hover:text-gray-400">Instagram</a>
-        <a href="#" class="hover:text-gray-400">Facebook</a>
-        <a href="#" class="hover:text-gray-400">Twitter</a>
-      </div>
-    </div>
-
+<!-- 🖼️ Hero Section (barrelyzx.jpg) -->
+<section class="mt-[84px] relative h-[450px] text-white">
+  <!-- Image + Dark Overlay -->
+  <div class="absolute inset-0 border-4 border-white rounded-xl overflow-hidden">
+    <img src="{% block header_image %}{% static 'images/barrelyzx.jpg' %}{% endblock %}"
+         class="w-full h-full object-cover opacity-100"
+         alt="Header background">
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
   </div>
 
+  <!-- ✍️ Text over Image -->
+  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center">
+    <h1 class="text-5xl font-extrabold drop-shadow-[3px_3px_6px_rgba(0,0,0,0.8)] smooch-header">
+      The Barrel House
+    </h1>
+    <p class="text-xl mt-2 font-medium drop-shadow-[2px_2px_4px_rgba(0,0,0,0.7)]">
+      Discover Curated Spirits & Bar Essentials
+    </p>
+  </div>
+</section>
+
+<!-- 📦 Main Page Content -->
+<main class="container mx-auto py-2 px-4">
+  {% block content %}
+  {% endblock %}
+</main>
+
+<!-- 🔚 Footer -->
+<footer class="bg-gray-900 text-gray-300 py-8 mt-10">
+  <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+    <!-- Add content here as needed -->
+  </div>
   <div class="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
-    © 2025 The Barrel House. All rights reserved. | Please drink responsibly. Must be 21+ to purchase.
+    © 2025 The Barrel House. All rights reserved.
   </div>
 </footer>
 
-
 </body>
 </html>
-
-

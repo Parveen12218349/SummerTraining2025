@@ -63,6 +63,7 @@ def delete_product(request, pk):
 
 
 
+
 def home_view(request):
     featured_products = Product.objects.filter(featured=True)[:9]  # Show only 9
     return render(request, 'index.html', {'featured_products': featured_products})

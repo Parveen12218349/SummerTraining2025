@@ -17,11 +17,20 @@ def add_to_cart(request, product_id):
         return redirect('view_cart')
     return redirect('products')  # fallback in case of GET
 
-@login_required
+
 def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
-    total = sum(item.get_total_price() for item in cart_items)
-    return render(request, 'cart/view_cart.html', {'cart_items': cart_items, 'total': total})
+
+    # Check if any item is out of stock
+    out_of_stock = any(item.quantity > item.product.stock for item in cart_items)
+
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    return render(request, 'cart/view_cart.html', {
+        'cart_items': cart_items,
+        'total_price': total_price,
+        'out_of_stock': out_of_stock,
+    })
 
 @login_required
 def remove_from_cart(request, item_id):

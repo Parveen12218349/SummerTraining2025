@@ -38,17 +38,25 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        print("🔍 Username entered:", username)
+        print("🔍 Password entered:", password)
+
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
+            print("✅ Logged in user:", user)
             next_url = request.GET.get('next')
             if next_url:
                 return redirect(next_url)
-            return redirect('index')  # ✅ redirect to home
+            return redirect('product_dashboard')  # 👈 safer redirect
         else:
             messages.error(request, "Invalid username or password.")
             return render(request, 'users/login.html')
+
     return render(request, 'users/login.html')
+
+
+
 
 
 def logout_view(request):

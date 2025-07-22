@@ -7,9 +7,9 @@
 
 
 <!-- Hero Banner with background image and quote (no JS or CSS) -->
-<section class="relative bg-cover bg-center h-[400px] mb-12 rounded-xl overflow-hidden" style="background-image: url('{% static 'images/banner-3.png' %}');">
+<section class="relative bg-cover bg-center h-[350px] mb-6 rounded-xl overflow-hidden" style="background-image: url('{% static 'images/banner-3.png' %}');">
   <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-center px-4">
-    <div class="text-white max-w-2xl">
+    <div class="text-white max-w-2xl" style="font-family: 'Orbitron', sans-serif;">
       <h2 class="text-4xl md:text-5xl font-bold">
         Discover Premium Spirits
       </h2>
@@ -22,6 +22,7 @@
     </div>
   </div>
 </section>
+
 
 
 
@@ -66,7 +67,18 @@
       <h3 class="text-lg font-bold text-gray-800">{{ product.name }}</h3>
       <p class="text-sm text-gray-600">{{ product.description|truncatechars:60 }}</p>
       <p class="text-orange-700 font-semibold mt-2">₹{{ product.price }}</p>
-      <p class="text-xs text-gray-500 mt-1">Stock: {{ product.stock }}</p>
+      <div class="relative">
+  {% if product.stock > 0 %}
+    <span class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
+      In Stock
+    </span>
+  {% else %}
+    <span class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
+      Out of Stock
+    </span>
+  {% endif %}
+</div>
+
       <p class="text-xs text-gray-500">Category: {{ product.category.name }}</p>
       <p class="text-xs text-gray-400">Added: {{ product.created_at|date:"M d, Y" }}</p>
     </div>

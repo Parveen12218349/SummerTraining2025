@@ -36,9 +36,22 @@
         <a href="{% url 'products' %}" class="mr-4 px-5 py-2 bg-gray-200 hover:bg-gray-300 text-sm font-semibold rounded-md">
           Continue Shopping
         </a>
-        <a href="{% url 'place_order' %}" class="px-5 py-2 bg-amber-700 hover:bg-amber-800 text-white text-sm font-semibold rounded-md">
-           Proceed to Checkout
-        </a>
+
+{#checkout#}
+ {% if out_of_stock %}
+  <button class="bg-gray-400 text-white px-4 py-2 rounded opacity-50 cursor-not-allowed" disabled>
+    Proceed to Checkout (Item out of stock)
+  </button>
+{% else %}
+  <a href="{% url 'place_order' %}">
+    <button class="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2 rounded">
+      Proceed to Checkout
+    </button>
+  </a>
+{% endif %}
+
+{#checkout#}
+
       </div>
     </div>
   {% else %}

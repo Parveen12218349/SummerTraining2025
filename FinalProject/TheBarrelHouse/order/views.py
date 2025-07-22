@@ -10,7 +10,15 @@ def place_order(request):
     total_price = sum(item.product.price * item.quantity for item in cart_items)
 
     if request.method == 'POST':
-        shipping_address = request.POST.get('shipping_address')
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        postal_code = request.POST.get('postal_code')
+        country = request.POST.get('country')
+        mobile_number = request.POST.get('mobile_number')
+
+        shipping_address = f"{street}, {city}, {state}, {postal_code}, {country}. Mobile: {mobile_number}"
+
         payment_method = request.POST.get('payment_method')
 
         if cart_items.exists():
@@ -21,6 +29,11 @@ def place_order(request):
                 total_amount=total_price
             )
 
+            # Check stock before placing order
+            for item in cart_items:
+                if item.quantity > item.product.stock:
+                    return redirect('cart')  # or use Django messages to show 'Out of stock'
+
             for item in cart_items:
                 OrderItem.objects.create(
                     order=order,
@@ -28,6 +41,10 @@ def place_order(request):
                     quantity=item.quantity,
                     price=item.product.price
                 )
+
+                item.product.stock -= item.quantity
+                item.product.save()
+
             cart_items.delete()
             return redirect('order_success', order_id=order.id)
         else:
@@ -40,26 +57,46 @@ def place_order(request):
 
 
 @login_required
+@login_required
 def place_order_with_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     total_price = product.price
 
     if request.method == 'POST':
-        shipping_address = request.POST.get('shipping_address')
+        if product.stock < 1:
+            # Prevent ordering if out of stock
+            return redirect('dashboard')
+
+        # Collect shipping & payment data
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        postal_code = request.POST.get('postal_code')
+        country = request.POST.get('country')
+        mobile_number = request.POST.get('mobile_number')
+        shipping_address = f"{street}, {city}, {state}, {postal_code}, {country}. Mobile: {mobile_number}"
         payment_method = request.POST.get('payment_method')
 
+        # Create the order
         order = Order.objects.create(
             buyer=request.user,
             shipping_address=shipping_address,
             payment_method=payment_method,
             total_amount=total_price
         )
+
+        # Create order item
         OrderItem.objects.create(
             order=order,
             product=product,
             quantity=1,
             price=product.price
         )
+
+        # Decrease product stock after order is confirmed
+        product.stock -= 1
+        product.save()
+
         return redirect('order_success', order_id=order.id)
 
     return render(request, 'orders/place_order.html', {
